@@ -1,10 +1,11 @@
 import datetime
 import random
 import math
-from Vehicle import Car, Motorbike, Bus
 
+from src.vehicle import Car, Motorbike, Bus
 
 class ParkingLot:
+
     def __init__(self, car_capacity, motorbike_capacity, bus_capacity):
         self.max_car_spaces = car_capacity
         self.max_motorbike_spaces = motorbike_capacity
@@ -20,9 +21,11 @@ class ParkingLot:
 
     def allocate_parking(self, vehicle_type, vehicle_number, entry_time):
         # complete this method
+        return True
 
     def calculate_fare(self, spot_number, vehicle_type, exit_time):
         # complete this method
+        return True
 
     def get_parking_spot(self, vehicle_num, vehicle_type):
         if vehicle_type == "car":
