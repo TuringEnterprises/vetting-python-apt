@@ -1,4 +1,4 @@
-Problem Statement:
+# Problem Statement
 
 Design a parking lot management system that allows users to allocate parking spaces and calculate fares. The system should support different types of vehicles, including cars, motorbikes, and buses. Implement the following functionalities:
 
