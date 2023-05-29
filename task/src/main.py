@@ -20,31 +20,85 @@ class ParkingLot:
         self.bus_spaces = bus_capacity
 
     def allocate_parking(self, vehicle_type, vehicle_number, entry_time):
-        # complete this method
-        return True
+        if vehicle_type == "car":
+            if self.car_spaces > 0:
+                self.car_spaces -= 1
+                i = True
+                while(i):
+                    random_spot = random.randint(1, self.max_car_spaces)
+                    if(random_spot not in self.car_capacity.keys()):
+                        self.car_capacity[random_spot] = vehicle_number,entry_time
+                        i = False
+                return random_spot
+            return 0
+        elif vehicle_type == "bus":
+            if self.bus_spaces > 0:
+                self.bus_spaces -= 1
+                i = True
+                while(i):
+                    random_spot = random.randint(1, self.max_bus_spaces)
+                    if(random_spot not in self.bus_capacity.keys()):
+                        self.bus_capacity[random_spot] = vehicle_number,entry_time
+                        i = False
+                return random_spot
+            return 0
+        elif vehicle_type == "motorbike":
+            if self.motorbike_spaces > 0:
+                self.motorbike_spaces -= 1
+                i = True
+                while(i):
+                    random_spot = random.randint(1, self.max_motorbike_spaces)
+                    if(random_spot not in self.motorbike_capacity.keys()):
+                        self.motorbike_capacity[random_spot] = vehicle_number,entry_time
+                        i = False
+                return random_spot
+            return 0
+        else:
+            return -1
 
     def calculate_fare(self, spot_number, vehicle_type, exit_time):
-        # complete this method
-        return True
+        if vehicle_type == "car":
+            if(spot_number not in self.car_capacity.keys()):
+                return 0
+            entry_time = self.car_capacity[spot_number][1]
+            del self.car_capacity[spot_number]
+            duration = exit_time - entry_time
+            return math.ceil(duration.total_seconds()/3600) * Car().parking_rate
+        elif vehicle_type == "bus":
+            if(spot_number not in self.bus_capacity.keys()):
+                return 0
+            entry_time = self.bus_capacity[spot_number][1]
+            del self.bus_capacity[spot_number]
+            duration = exit_time - entry_time
+            return math.ceil(duration.total_seconds()/3600) * Bus().parking_rate
+        elif vehicle_type == "motorbike":
+            if(spot_number not in self.motorbike_capacity.keys()):
+                return 0
+            entry_time = self.motorbike_capacity[spot_number][1]
+            del self.motorbike_capacity[spot_number]
+            duration = exit_time - entry_time
+            return math.ceil(duration.total_seconds()/3600) * Motorbike().parking_rate
+        else:
+            return -1
 
     def get_parking_spot(self, vehicle_num, vehicle_type):
         if vehicle_type == "car":
             for key in self.car_capacity.keys():
-                if vehicle_num == self.motorbike_capacity[key][1]:
+                if vehicle_num == self.car_capacity[key][0]:
                     return key
-            return -1
+            return 0
         elif vehicle_type == "bus":
             for key in self.bus_capacity.keys():
-                if vehicle_num == self.car_capacity[key][1]:
+                if vehicle_num == self.bus_capacity[key][0]:
                     return key
-            return -1
+            return 0
         elif vehicle_type == "motorbike":
             for key in self.motorbike_capacity.keys():
-                if vehicle_num == self.bus_capacity[key][1]:
+                if vehicle_num == self.motorbike_capacity[key][0]:
                     return key
-            return -1
-        else:
             return 0
+        else:
+            return -1
 
 
 def main():
